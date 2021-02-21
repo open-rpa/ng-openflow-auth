@@ -4,7 +4,7 @@ Holder project for the NgOpenflowAuth angular Component for easy authentication 
 
 1) Install NgOpenflowAuth angular-oauth2-oidc and @openiap/openflow-api
 
-``` npm i @openiap/ng-openflow-aut angular-oauth2-oidc @openiap/openflow-api``` 
+``` npm i @openiap/ng-openflow-auth angular-oauth2-oidc @openiap/openflow-api``` 
 
 2) Add Configuration file for oauth2-oidc and NgOpenflowAuth 
 Under src/app add a new file called authCodeFlowConfig.ts 
