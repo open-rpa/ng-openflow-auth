@@ -1,0 +1,20 @@
+{
+  "name": "@openiap/ng-openflow-auth",
+  "version": "0.0.3",
+  "publishConfig": {
+    "access": "public"
+  },
+  "browser": {
+    "fs": false,
+    "os": false,
+    "path": false,
+    "crypto": false
+  },
+  "peerDependencies": {
+    "@angular/common": "^11.2.1",
+    "@angular/core": "^11.2.1"
+  },
+  "dependencies": {
+    "tslib": "^2.0.0"
+  }
+}

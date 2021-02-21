@@ -1,0 +1,51 @@
+{
+  "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
+  "cli": {
+    "analytics": false
+  },
+  "version": 1,
+  "newProjectRoot": "projects",
+  "projects": {
+    "@openiap/ng-openflow-auth": {
+      "projectType": "library",
+      "root": "projects/openiap/ng-openflow-auth",
+      "sourceRoot": "projects/openiap/ng-openflow-auth/src",
+      "prefix": "lib",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:ng-packagr",
+          "options": {
+            "tsConfig": "projects/openiap/ng-openflow-auth/tsconfig.lib.json",
+            "project": "projects/openiap/ng-openflow-auth/ng-package.json"
+          },
+          "configurations": {
+            "production": {
+              "tsConfig": "projects/openiap/ng-openflow-auth/tsconfig.lib.prod.json"
+            }
+          }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "projects/openiap/ng-openflow-auth/src/test.ts",
+            "tsConfig": "projects/openiap/ng-openflow-auth/tsconfig.spec.json",
+            "karmaConfig": "projects/openiap/ng-openflow-auth/karma.conf.js"
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "projects/openiap/ng-openflow-auth/tsconfig.lib.json",
+              "projects/openiap/ng-openflow-auth/tsconfig.spec.json"
+            ],
+            "exclude": [
+              "**/node_modules/**"
+            ]
+          }
+        }
+      }
+    }
+  },
+  "defaultProject": "@openiap/ng-openflow-auth"
+}
