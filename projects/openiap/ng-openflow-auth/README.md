@@ -20,7 +20,7 @@ export const authCodeFlowConfig: AuthConfig = {
 };
 ```
 
-2) Tell angular to ignore the npm modules used by @openiap/openflow-api
+3) Tell angular to ignore the npm modules used by @openiap/openflow-api
 Open package.json and add a browser section
 
 ```json
@@ -31,7 +31,7 @@ Open package.json and add a browser section
   },
 ```
 
-3) Register angular-oauth2-oidc and HttpClientModule
+4) Register angular-oauth2-oidc and HttpClientModule
 open app.module.ts and add
 
 ```javascript
@@ -56,7 +56,7 @@ import { HttpClientModule } from '@angular/common/http';
 
 ```
 
-3) In any component you want to check if the user has been signed in, get data.
+5) In any component you want to check if the user has been signed in, get data.
 Add this to the component.ts file
 
 ```javascript
@@ -86,7 +86,7 @@ export class UsersComponent implements OnInit {
 }
 ```
 
-And to allow the user to sign in/sing out and see the list add  this to the html page
+6) And to allow the user to sign in/sing out and see the list add  this to the html page
 
 ```html
 <button *ngIf="!openflowAuthService.isSignedIn" (click)="openflowAuthService.Login()">Login</button>
@@ -98,4 +98,3 @@ And to allow the user to sign in/sing out and see the list add  this to the html
     </li>
 </div>
 ```
-

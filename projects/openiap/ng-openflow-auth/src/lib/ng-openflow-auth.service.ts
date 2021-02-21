@@ -97,7 +97,7 @@ export class NgOpenflowAuthService {
               if (WebSocketClient.instance == null) {
                 const cli: WebSocketClient = new WebSocketClient(this.logger, this.apiwsurl);
                 cli.agent = "customwebapp";
-                cli.version = "0.0.4";
+                cli.version = "0.0.5";
                 cli.events.on('connect', () => {
                   this.logger.info('connected to ' + this.apiwsurl);
                   // this.loadToken();
