@@ -1,6 +1,6 @@
 {
-  "name": "ng-openflow-auth",
-  "version": "0.0.5",
+  "name": "@openiap/ng-openflow-auth",
+  "version": "0.0.8",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
@@ -8,7 +8,7 @@
     "test": "ng test",
     "lint": "ng lint"
   },
-  "private": true,
+  "private": false,
   "dependencies": {
     "@angular/animations": "~11.2.1",
     "@angular/common": "~11.2.1",

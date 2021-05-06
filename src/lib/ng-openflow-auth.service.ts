@@ -3,7 +3,7 @@ import { NoderedUtil, TokenUser, WebSocketClient } from '@openiap/openflow-api';
 import { AuthConfig, OAuthService } from 'angular-oauth2-oidc';
 import { Subject } from 'rxjs';
 
-@Injectable({providedIn: 'root'})
+@Injectable({ providedIn: 'root' })
 export class NgOpenflowAuthService {
   // ng build @openiap/ng-openflow-auth --prod
   // npm publish .\dist\openiap\ng-openflow-auth\
@@ -27,6 +27,8 @@ export class NgOpenflowAuthService {
 
   private SignedInSource = new Subject<TokenUser>();
   signedIn$ = this.SignedInSource.asObservable();
+  private InitializedSource = new Subject<boolean>();
+  Initialized$ = this.InitializedSource.asObservable();
   Title = "My title"
   SetTitle(Title: string) {
     this.Title = Title;
@@ -72,7 +74,7 @@ export class NgOpenflowAuthService {
       if (NoderedUtil.IsNullEmpty(id)) return;
       console.log("Sign in with " + id)
       const result = await NoderedUtil.SigninWithToken("", id, "");
-      this.user = result.user;
+      this.user = TokenUser.assign(result.user);
       this.isSignedIn = true;
       this.SignedInSource.next(this.user);
     } catch (error) {
@@ -80,7 +82,8 @@ export class NgOpenflowAuthService {
     }
   }
   public UserProfile: any;
-  private ConfigureImplicitFlowAuthentication(dologin: boolean = false) {
+  public hasValidAccessToken: boolean = false;
+  public ConfigureImplicitFlowAuthentication(dologin: boolean = false) {
     try {
       this.oauthService.events.subscribe(e => console.log(e));
       this.oauthService.configure(this.authCodeFlowConfig);
@@ -91,25 +94,30 @@ export class NgOpenflowAuthService {
         }).then(() => {
           if (!this.oauthService.hasValidAccessToken() && dologin == true) {
             this.oauthService.initImplicitFlow()
-          } else if (this.oauthService.hasValidAccessToken()) {
-            this.oauthService.loadUserProfile().then((userprofile: any) => {
-              this.UserProfile = userprofile;
-              if (WebSocketClient.instance == null) {
-                const cli: WebSocketClient = new WebSocketClient(this.logger, this.apiwsurl);
-                cli.agent = "customwebapp";
-                cli.version = "0.0.2";
-                cli.events.on('connect', () => {
-                  this.logger.info('connected to ' + this.apiwsurl);
-                  // this.loadToken();
-                  if (this.UserProfile) {
-                    this.loadToken();
-                  }
-                });
-                cli.connect();
-              }
-
-            }).catch((err: any) => console.error(err));
-
+          }
+          else {
+            this.hasValidAccessToken = this.oauthService.hasValidAccessToken();
+            if (this.hasValidAccessToken) {
+              this.oauthService.loadUserProfile().then((userprofile: any) => {
+                this.UserProfile = userprofile;
+                if (WebSocketClient.instance == null) {
+                  const cli: WebSocketClient = new WebSocketClient(this.logger, this.apiwsurl);
+                  cli.agent = "customwebapp";
+                  cli.version = "0.0.2";
+                  cli.events.on('connect', () => {
+                    this.logger.info('connected to ' + this.apiwsurl);
+                    // this.loadToken();
+                    if (this.UserProfile) {
+                      this.loadToken();
+                    }
+                  });
+                  cli.connect();
+                }
+                this.InitializedSource.next(true);
+              }).catch((err: any) => console.error(err));
+            } else {
+              this.InitializedSource.next(true);
+            }
           }
         });
       });
@@ -117,5 +125,7 @@ export class NgOpenflowAuthService {
       console.error(error)
     }
   }
+
+
 }
 export declare type onSignedinCallback = (user: TokenUser) => void;
