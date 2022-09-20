@@ -1,2 +1,10 @@
-ng build --prod
+ng build @openiap/ng-openflow-auth --prod
+
+
+npm run build
+
 npm publish .\dist\openiap\ng-openflow-auth\
+npm i @openiap/ng-openflow-auth
+npm i C:\code\ng-openflow-auth\dist\openiap\ng-openflow-auth
+
+npm i @openiap/openflow-api@npm:@openiap/openflow-api-js

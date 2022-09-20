@@ -77,8 +77,10 @@ export class NgOpenflowAuthService {
   public async loadToken(): Promise<void> {
     try {
       const id = this.oauthService.getAccessToken();
+      const idt = this.oauthService.getIdToken();
       if (NoderedUtil.IsNullEmpty(id)) return;
-      console.log("Sign in with " + id)
+      console.log("Sign in with access token " + id + " or id token " + idt)
+      // const result = await NoderedUtil.SigninWithToken("", idt, "");
       const result = await NoderedUtil.SigninWithToken("", id, "");
       this.user = TokenUser.assign(result.user);
       this.isSignedIn = true;
@@ -88,6 +90,9 @@ export class NgOpenflowAuthService {
     }
   }
   public UserProfile: any;
+  public WebSocketClient() {
+    return WebSocketClient.instance;
+  }
   public ConfigureImplicitFlowAuthentication(dologin: boolean = false) {
     try {
       // this.oauthService.events.subscribe(e => console.log(e));
@@ -103,6 +108,9 @@ export class NgOpenflowAuthService {
           } else if (this.oauthService.hasValidAccessToken()) {
             this.hasToken = true;
             this.oauthService.loadUserProfile().then((userprofile: any) => {
+              console.debug("userprofile", userprofile);
+              var t1 = WebSocketClient;
+              var t2 = NoderedUtil;
               this.hasValidToken = true;
               this.UserProfile = userprofile;
               if (WebSocketClient.instance == null) {
