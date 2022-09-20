@@ -81,7 +81,8 @@ export class NgOpenflowAuthService {
       if (NoderedUtil.IsNullEmpty(id)) return;
       console.log("Sign in with access token " + id + " or id token " + idt)
       // const result = await NoderedUtil.SigninWithToken("", idt, "");
-      const result = await NoderedUtil.SigninWithToken("", id, "");
+      // const result = await NoderedUtil.SigninWithToken("", id, "");
+      const result = await NoderedUtil.SigninWithToken({ jwt: id });
       this.user = TokenUser.assign(result.user);
       this.isSignedIn = true;
       this.SignedInSource.next(this.user);

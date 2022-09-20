@@ -1,6 +1,6 @@
 {
   "name": "@openiap/ng-openflow-auth",
-  "version": "0.0.8",
+  "version": "0.0.9",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
@@ -19,7 +19,7 @@
     "@angular/platform-browser": "~11.2.1",
     "@angular/platform-browser-dynamic": "~11.2.1",
     "@angular/router": "~11.2.1",
-    "@openiap/openflow-api": "^1.0.77",
+    "@openiap/openflow-api": "^2.0.18",
     "angular-oauth2-oidc": "^10.0.3",
     "rxjs": "~6.6.0",
     "tslib": "^2.0.0",
